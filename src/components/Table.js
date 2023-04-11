@@ -5,32 +5,26 @@ const TableData = ({ data, columns, loading, error }) => {
 
     return (
         <div>
-            <Table striped bordered hover>
+            {columns !== null ? (<Table striped bordered hover>
                 <thead>
                     <tr>
-                        {columns !== null ?
-                            columns.map((column, index) => (
-                                <th key={index}>{column}</th>
-                            )) : <th colSpan={5}>Data Not Found</th>}
+                        {columns.map((column, index) => (
+                            <th key={index}>{column}</th>))}
                     </tr>
                 </thead>
                 <tbody>
-                    {loading && <tr><td colSpan={5}>Carregando Dados</td></tr>}
-                    {error && <tr><td colSpan={5}>{error}</td></tr>}
-                    {columns !== null ?
-                        data.map((info) => (
-                            <tr key={info.id}>
-                                <td>{info.Nome}</td>
-                                <td>{info.Data_Nascimento}</td>
-                                <td>{info.CPF}</td>
-                                <td>{info.Endereco}</td>
-                                <td>{info.Status}</td>
+                    {error && <tr><td colSpan={columns.length}>{error}</td></tr>}
+                    {!error ?
+                        data.map((info, index) => (
+                            <tr key={info.id ? info.id : index}>
+                                {columns.map((column, indexColumn) => (
+                                    <td key={indexColumn}>{info[column]}</td>))}
                             </tr>
                         )) : <tr><td>Não há dados</td></tr>
                     }
                 </tbody>
 
-            </Table>
+            </Table>) : <div>Não há dados para serem carregados!</div>}
         </div>
     )
 }

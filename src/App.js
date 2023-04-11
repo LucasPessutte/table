@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <h1>Listagem de componentes</h1>
-      <TableData data={data} columns={columns} loading={loading} error={error}></TableData>
+      {!loading ? (<TableData data={data} columns={columns} error={error}></TableData>) : (<div>Carregando...</div>)}
     </div>
   );
 }
