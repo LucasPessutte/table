@@ -5,7 +5,7 @@ import { useFetch } from './hooks/useFetch';
 
 function App() {
 
-  const url = "pessoas"
+  const url = "http://localhost:5000/pessoas"
   const { data: infos, loading, error } = useFetch(url);
 
   const [data, setData] = useState(null);
